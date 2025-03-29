@@ -79,5 +79,5 @@ Please reach out via www.linkedin.com/in/naomi-oluyemi
 
 ---
 
-## 📄 License
+##  License
 This project is licensed under the [MIT License](LICENSE).
