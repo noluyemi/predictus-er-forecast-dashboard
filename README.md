@@ -57,6 +57,22 @@ Despite abundant hospital and syndromic data, there is a lack of predictive syst
 | Final Dashboard & Summary Report  |  Planned         | December 2025   |
 
 ---
+##  Forecast Dashboard
+
+The `app.py` file in the `/dashboards/` directory contains the Streamlit dashboard script used to visualize and forecast ER visit trends in the U.S. from 2016 to 2025.
+
+The dashboard includes:
+- A line chart displaying actual ER visits from 2016 to 2022.
+- A simple linear regression forecast projecting trends from 2023 to 2025.
+- A visual tool to support proactive hospital resource planning.
+
+### Dashboard Preview
+
+![Dashboard Preview](media/dashboard_preview.png)
+
+> *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
+
+---
 
 ##  Tools & Technologies
 
