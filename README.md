@@ -72,6 +72,13 @@ The dashboard includes:
 
 > *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
 
+###  Live App
+
+✅ [Launch PredictUS Dashboard](https://predictus-er-forecast-dashboard.streamlit.app)
+
+This Streamlit dashboard forecasts U.S. ER visits based on national data (2016–2022) and a linear regression model. Built with Python and open data for public health preparedness.
+
+
 ---
 
 ##  Tools & Technologies
