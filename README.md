@@ -42,19 +42,6 @@ Despite abundant hospital and syndromic data, there is a lack of predictive syst
 - Interface: Streamlit or Dash  
 - Stretch Goal: Integration of EHR or geospatial APIs  
 
----
-
-##  Project Timeline
-
-| Milestone                          | Status            | Target Date     |
-|-----------------------------------|-------------------|-----------------|
-| Idea Finalized                    |  Completed       | March 2025      |
-| Initial Dashboard Mockup          |  Completed       | April 2025      |
-| Data Integration & Cleaning       |  In Progress     | April–May 2025  |
-| Baseline Forecast Model           |  Planned         | May 2025        |
-| MVP Dashboard (Streamlit)         |  Planned         | June 2025       |
-| Medium Article / Public Launch    |  Planned         | July–Aug 2025   |
-| Final Dashboard & Summary Report  |  Planned         | December 2025   |
 
 ---
 ##  Forecast Dashboard
