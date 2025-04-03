@@ -59,6 +59,11 @@ The dashboard includes:
 
 > *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
 
+![Forecast Preview](media/prophet_dashboard_preview.png)
+
+> This is a live AI-powered forecast of U.S. emergency room visits using Prophet.
+
+
 ###  Live App
 
  [Launch PredictUS Dashboard](https://predictus-er-forecast-dashboard.streamlit.app)
