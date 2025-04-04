@@ -63,6 +63,10 @@ The dashboard includes:
 
 > This is a live AI-powered forecast of U.S. emergency room visits using Prophet.
 
+![Forecast Chart](media/forecast_er_plus_flu_overlay.png)
+
+> Forecast Preview: ER Visits with Flu Trend Overlay (2016–2025)
+
 
 ###  Live App
 
