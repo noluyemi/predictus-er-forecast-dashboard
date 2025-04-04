@@ -2,30 +2,44 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Set dashboard config
-st.set_page_config(page_title="PredictUS: Regional ER Forecasts", layout="centered")
+# App setup
+st.set_page_config(page_title="PredictUS: Regional ER Forecast", layout="centered")
 
-# Load region forecast data
+# Load forecast data
 df = pd.read_csv("data/processed/all_regions_er_forecast.csv")
 
-# Dashboard title
-st.title("PredictUS: U.S. Emergency Room Forecast by Region")
-st.write("""
-Forecasting ER visits from 2016 to 2025 across four U.S. regions using public health data and Prophet modeling.
-This dashboard supports proactive planning for hospitals, emergency managers, and public health teams.
-""")
+# Title
+st.title("PredictUS: U.S. Emergency Room Forecast Dashboard")
+st.write("Interactive dashboard forecasting ER visits (2016–2025) using AI and CDC/HHS public data.")
 
-# Dropdown to select region
-region_selected = st.selectbox("📍 Choose a U.S. Region", sorted(df['region'].unique()))
+# Sidebar filters
+st.sidebar.header("📍 Filters")
 
-# Filter for region
+# Region selector
+region_selected = st.sidebar.selectbox("Select Region", sorted(df["region"].unique()))
+
+# Filter region first
 region_df = df[df["region"] == region_selected]
 
-# Plot forecast
+# Year filter based on available data for the region
+min_year = int(region_df["Year"].min())
+max_year = int(region_df["Year"].max())
+
+start_year = st.sidebar.selectbox("Start Year", list(range(min_year, max_year + 1)), index=0)
+end_year = st.sidebar.selectbox("End Year", list(range(min_year, max_year + 1)), index=len(range(min_year, max_year + 1)) - 1)
+
+# Filter by year range
+if start_year > end_year:
+    st.warning("⚠️ Start year must be before end year.")
+    st.stop()
+
+filtered_df = region_df[(region_df["Year"] >= start_year) & (region_df["Year"] <= end_year)]
+
+# Plot
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(region_df["Year"], region_df["Forecast"], label="Forecast", marker="o")
-ax.fill_between(region_df["Year"], region_df["yhat_lower"], region_df["yhat_upper"], alpha=0.2, label="Confidence Interval")
-ax.set_title(f"{region_selected} Region ER Visit Forecast (2016–2025)")
+ax.plot(filtered_df["Year"], filtered_df["Forecast"], label="Forecast", marker="o")
+ax.fill_between(filtered_df["Year"], filtered_df["yhat_lower"], filtered_df["yhat_upper"], alpha=0.2, label="Confidence Interval")
+ax.set_title(f"{region_selected} Region ER Forecast ({start_year}–{end_year})")
 ax.set_xlabel("Year")
 ax.set_ylabel("Estimated Visits")
 ax.legend()
