@@ -90,11 +90,11 @@ Access the interactive forecasting dashboard here:
 
 This live Streamlit app allows users to:
 
-Filter by U.S. Census region
-Select a year range from 2016 to 2025
-Visualize forecasted emergency department (ER) visits
-View a Prophet-generated confidence interval to gauge uncertainty
-(Coming soon) Overlay seasonal flu trends from CDC ILINet data
+- Filter by U.S. Census region
+- Select a year range from 2016 to 2025
+- Visualize forecasted emergency department (ER) visits
+- View a Prophet-generated confidence interval to gauge uncertainty
+- (Coming soon) Overlay seasonal flu trends from CDC ILINet data
 
 
 
