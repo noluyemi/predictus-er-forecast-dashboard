@@ -67,6 +67,22 @@ The dashboard includes:
 
 > Forecast Preview: ER Visits with Flu Trend Overlay (2016–2025)
 
+### Regional ER Forecasts (2016–2025)
+
+Forecasts generated using Prophet for U.S. regions based on CDC/HHS data.
+
+#### 📈 South
+![South Forecast](media/phase2/forecasts/south_forecast_plot.png)
+
+#### 📈 Midwest
+![Midwest Forecast](media/phase2/forecasts/midwest_forecast_plot.png)
+
+#### 📈 West
+![West Forecast](media/phase2/forecasts/west_forecast_plot.png)
+
+#### 📈 Northeast
+![Northeast Forecast](media/phase2/forecasts/northeast_forecast_plot.png)
+
 
 ###  Live App
 
