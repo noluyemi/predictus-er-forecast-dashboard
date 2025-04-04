@@ -22,7 +22,6 @@ This file documents the development milestones of the PredictUS: ER Forecast Das
 -  Captured live dashboard screenshot for portfolio
 -  Embedded forecast chart in `README.md`
 -  Updated project roadmap (`docs/roadmap.md`) for traceability
--  ### ✅ April 2025 – Milestone 1: Dual Forecast Complete
 - Integrated CDC ILINet flu data (2016–2022)
 - Merged with ER visit data for temporal alignment
 - Built Prophet forecast model (ER visits through 2025)
