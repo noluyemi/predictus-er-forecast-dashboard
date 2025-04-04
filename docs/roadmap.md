@@ -6,7 +6,7 @@ This file documents the development milestones of the PredictUS: ER Forecast Das
 
 ## Completed Milestones
 
-### Week 1–2 (March–April 2025)
+### March–April 2025
 -  Defined national impact and problem statement
 -  Created GitHub repo with README and structure
 -  Identified and cleaned CDC ER visit dataset (2016–2022)
@@ -22,6 +22,13 @@ This file documents the development milestones of the PredictUS: ER Forecast Das
 -  Captured live dashboard screenshot for portfolio
 -  Embedded forecast chart in `README.md`
 -  Updated project roadmap (`docs/roadmap.md`) for traceability
+-  ### ✅ April 2025 – Milestone 1: Dual Forecast Complete
+- Integrated CDC ILINet flu data (2016–2022)
+- Merged with ER visit data for temporal alignment
+- Built Prophet forecast model (ER visits through 2025)
+- Visualized ER visit predictions with flu trend overlay
+- Uploaded chart to GitHub (`/media/forecast_er_plus_flu_overlay.png`)
+- Set foundation for dashboard flu toggle 
 
 ---
 
