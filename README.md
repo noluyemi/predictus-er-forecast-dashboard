@@ -85,10 +85,17 @@ Forecasts generated using Prophet for U.S. regions based on CDC/HHS data.
 
 
 ###  Live App
+Access the interactive forecasting dashboard here:
+ https://predictus-er-forecast-dashboard.streamlit.app
 
- [Launch PredictUS Dashboard](https://predictus-er-forecast-dashboard.streamlit.app)
+This live Streamlit app allows users to:
 
-This Streamlit dashboard forecasts U.S. ER visits based on national data (2016–2022) and a linear regression model. Built with Python and open data for public health preparedness.
+Filter by U.S. Census region
+Select a year range from 2016 to 2025
+Visualize forecasted emergency department (ER) visits
+View a Prophet-generated confidence interval to gauge uncertainty
+(Coming soon) Overlay seasonal flu trends from CDC ILINet data
+
 
 
 ---
