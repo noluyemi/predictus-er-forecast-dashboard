@@ -84,19 +84,16 @@ Forecasts generated using Prophet for U.S. regions based on CDC/HHS data.
 ![Northeast Forecast](media/phase2/forecasts/northeast_forecast_plot.png)
 
 
-###  Live App
-Access the interactive forecasting dashboard here:
- https://predictus-er-forecast-dashboard.streamlit.app
+###   Live Dashboard
+PredictUS: U.S. Emergency Room Forecast
 
-This live Streamlit app allows users to:
+This dashboard visualizes projected ER visits (2016–2025) using AI and historical public health data. In Phase 2, we introduced flu season overlays using CDC ILINet data, allowing users to compare forecasted ER surges with average flu activity by region.
 
-- Filter by U.S. Census region
-- Select a year range from 2016 to 2025
-- Visualize forecasted emergency department (ER) visits
-- View a Prophet-generated confidence interval to gauge uncertainty
-- (Coming soon) Overlay seasonal flu trends from CDC ILINet data
-
-
+- Dynamic region & year filters
+- Dual-axis graph: ER forecast + flu trends
+- Focused on public health equity and surge preparedness
+- Live App: https://predictus-er-forecast-dashboard.streamlit.app
+- GitHub Repo: https://github.com/noluyemi/predictus-er-forecast-dashboard
 
 ---
 
