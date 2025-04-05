@@ -8,11 +8,13 @@ st.set_page_config(page_title="PredictUS: Regional ER Forecast", layout="centere
 # Load ER forecast data
 forecast_df = pd.read_csv("data/processed/all_regions_er_forecast.csv")
 
-# Load flu data
+# Load and prepare flu data
 flu_df = pd.read_csv("data/processed/cdc_ilinet_flu_by_year.csv")
+flu_df.columns = flu_df.columns.str.strip().str.lower().str.replace(" ", "_")
+flu_df = flu_df.rename(columns={"year": "Year", "average_flu_percent": "Average_Flu_Percent"})
 
-# Merge by Year + Region
-df = pd.merge(forecast_df, flu_df, on=["Year", "region"], how="left")
+# Merge the two datasets
+df = pd.merge(forecast_df, flu_df, on="Year", how="left")
 
 # Title
 st.title("PredictUS: U.S. Emergency Room Forecast Dashboard")
