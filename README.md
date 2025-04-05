@@ -95,6 +95,8 @@ This dashboard visualizes projected ER visits (2016–2025) using AI and histori
 - Live App: https://predictus-er-forecast-dashboard.streamlit.app
 - GitHub Repo: https://github.com/noluyemi/predictus-er-forecast-dashboard
 
+![Dashboard Flu Overlay](media/dashboard_flu_overlay.png)
+
 ---
 
 ##  Tools & Technologies
