@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="PredictUS: Regional ER Forecast", layout="centered")
 
 # Load ER forecast data
-forecast_df = pd.read_csv("data/processed/all_regions_er_forecast.csv")
+forecast_df = pd.read_csv("data/processed/all_regions_er_flu_mobility_forecast.csv")
 
 # Load and prepare flu data
 flu_df = pd.read_csv("data/processed/cdc_ilinet_flu_by_year.csv")
@@ -73,6 +73,24 @@ if "Average_Flu_Percent" in filtered_df.columns and filtered_df["Average_Flu_Per
     )
     ax2.set_ylabel("Average Flu %")
     ax2.legend(loc="upper left")
+
+    # Add mobility trend overlay (average of retail + grocery)
+    if (
+        "retail_and_recreation_percent_change_from_baseline" in filtered_df.columns
+        and "grocery_and_pharmacy_percent_change_from_baseline" in filtered_df.columns
+    ):
+        mobility_avg = filtered_df[
+            ["retail_and_recreation_percent_change_from_baseline", "grocery_and_pharmacy_percent_change_from_baseline"]
+        ].mean(axis=1)
+
+        ax2.plot(
+            filtered_df["Year"],
+            mobility_avg,
+            color="green",
+            linestyle=":",
+            marker="^",
+            label="Avg Mobility % (Retail + Grocery)"
+        )
 
 ax.legend(loc="upper right")
 st.pyplot(fig)
