@@ -99,6 +99,21 @@ This dashboard visualizes projected ER visits (2016–2025) using AI and histori
 
 ---
 
+## Phase 3: Expanding Intelligence (May 2025)
+
+**Focus**: Integrate environmental + behavioral predictors to refine forecasting model
+
+| Milestone | Purpose |
+|----------|---------|
+| Add Google Mobility data | Capture population movement as predictor of surges  
+| Integrate weather anomalies (NOAA) | Factor in temperature drops, pollution spikes, etc.  
+| Explore multivariate forecasting (XGBoost, Prophet+) | Build more robust models  
+| Begin `predictus-state-models.ipynb` | Transition from regional to state-level forecasting  
+| Draft research preprint | Technical writeup to submit to arXiv or MedRxiv  
+| Outreach to professors | Initiate collaboration + request mentorship
+
+---
+
 ##  Tools & Technologies
 
 - **Python** (pandas, scikit-learn)
