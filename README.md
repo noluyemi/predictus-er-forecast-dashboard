@@ -46,12 +46,14 @@ Despite abundant hospital and syndromic data, there is a lack of predictive syst
 ---
 ##  Forecast Dashboard
 
-The `app.py` file in the `/dashboards/` directory contains the Streamlit dashboard script used to visualize and forecast ER visit trends in the U.S. from 2016 to 2025.
+The app.py file in the /dashboards/ directory powers the Streamlit dashboard that visualizes ER surge forecasts across U.S. regions (2016–2025), enhanced with flu season and mobility behavior overlays.
 
-The dashboard includes:
-- A line chart displaying actual ER visits from 2016 to 2022.
-- A simple linear regression forecast projecting trends from 2023 to 2025.
-- A visual tool to support proactive hospital resource planning.
+Key Features:
+- AI Forecasting: Predicts ER volume using Prophet time series modeling
+- Flu Overlay: CDC ILINet data shows average % of outpatient flu-like illness
+- Mobility Behavior: Google Mobility trends (Retail + Grocery) visualize public movement
+- Filters: Select region and custom year range
+- Equity Lens: Designed to support underserved and at-capacity public health systems
 
 ### Dashboard Preview
 
@@ -71,18 +73,21 @@ The dashboard includes:
 
 Forecasts generated using Prophet for U.S. regions based on CDC/HHS data.
 
-#### 📈 South
+####  South
 ![South Forecast](media/phase2/forecasts/south_forecast_plot.png)
 
-#### 📈 Midwest
+####  Midwest
 ![Midwest Forecast](media/phase2/forecasts/midwest_forecast_plot.png)
 
-#### 📈 West
+####  West
 ![West Forecast](media/phase2/forecasts/west_forecast_plot.png)
 
-#### 📈 Northeast
+####  Northeast
 ![Northeast Forecast](media/phase2/forecasts/northeast_forecast_plot.png)
 
+#### ER Forecast + Flu Trends (Dual Axis)
+
+![Visualizes predicted ER visits with flu season burden (CDC ILINet)](media/dashboard_flu_overlay.png)
 
 ###   Live Dashboard
 PredictUS: U.S. Emergency Room Forecast
@@ -95,7 +100,8 @@ This dashboard visualizes projected ER visits (2016–2025) using AI and histori
 - Live App: https://predictus-er-forecast-dashboard.streamlit.app
 - GitHub Repo: https://github.com/noluyemi/predictus-er-forecast-dashboard
 
-![Dashboard Flu Overlay](media/dashboard_flu_overlay.png)
+#### ER Forecast + Flu + Mobility
+![Example: South Region, 2020–2022](media/er_flu_mobility_south_2020_2022.png)
 
 ---
 
@@ -110,7 +116,7 @@ This dashboard visualizes projected ER visits (2016–2025) using AI and histori
 | Explore multivariate forecasting (XGBoost, Prophet+) | Build more robust models  
 | Begin `predictus-state-models.ipynb` | Transition from regional to state-level forecasting  
 | Draft research preprint | Technical writeup to submit to arXiv or MedRxiv  
-| Outreach to professors | Initiate collaboration + request mentorship
+| Outreach to professionals | Initiate collaboration + request mentorship
 
 ---
 
