@@ -26,6 +26,37 @@ In contrast, the South region’s forecast for 2025 shows an uptick not explaine
 
 ---
 
+---
+
+###  Mobility Data Integration
+
+**Why Add Mobility Trends?**  
+Behavioral patterns — like reduced retail visits or increased time at home — strongly correlate with viral spread, healthcare avoidance, and ER usage.  
+By integrating Google Mobility trends, we add behavioral context to seasonal and forecasted ER surges.
+
+**Data Source:**  
+- Google COVID-19 Community Mobility Reports (2020–2022)
+- Aggregated at the **state level**, then mapped to U.S. census regions (Midwest, South, West, Northeast)
+
+**Integrated Indicators:**  
+-  Retail & Recreation  
+-  Grocery & Pharmacy  
+-  Composite Mobility Score (used in dashboard: avg of retail + grocery)
+
+**How It Works in the Dashboard**  
+- Overlaid as a green dotted line (`Avg Mobility %`)  
+- Appears on a secondary axis alongside flu trends  
+- Provides real-world context for observed or predicted surges
+
+**Example Insight:**  
+In the Midwest, a decline in mobility during 2020–2021 coincided with fewer ER visits, likely due to public lockdowns and risk avoidance. In contrast, 2022 shows increased mobility and higher forecasted ER volumes, even though flu % remained flat.
+
+**Limitations:**  
+- Google mobility data only covers 2020–2022  
+- Regional mapping is based on subregion approximation (e.g., Alabama → South)  
+- Future versions will explore Google mobility for **transit**, **residential**, and **workplaces** independently
+---
+
 ##  Modeling Reflection (April 2025)
 
 **Model Used:** Prophet (Meta/Facebook’s time series forecasting tool)  
