@@ -22,7 +22,7 @@ st.title(" PredictUS: U.S. ER Surge Forecast Dashboard")
 st.markdown("Forecasting U.S. emergency room visits with AI, flu trends, and mobility behavior data.")
 
 # Sidebar filters
-st.sidebar.header("📍 Filters")
+st.sidebar.header(" Filters")
 region_selected = st.sidebar.selectbox("Select Region", sorted(df["region"].unique()))
 
 region_df = df[df["region"] == region_selected]
