@@ -71,8 +71,16 @@ if "avg_flu_percent" in filtered_df.columns or "avg_temperature_f" in filtered_d
         ax2.plot(filtered_df["year"], mobility_avg, color="green", linestyle=":", marker="^", label="Avg Mobility %")
 
     # Climate overlay
-    if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f"].notna().any():
-        ax2.plot(filtered_df["year"], filtered_df["avg_temperature_f"], color="red", linestyle="-.", marker="D", label="Avg Temp (°F)")
+if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f"].notna().any():
+    ax2.plot(
+        filtered_df["year"],
+        filtered_df["avg_temperature_f"],
+        color="red",
+        linestyle="-.",
+        marker="D",
+        linewidth=2,
+        label="Avg Temp (°F)" 
+    )
 
     # Combined legend for overlays
     ax2.legend(loc="upper left")
