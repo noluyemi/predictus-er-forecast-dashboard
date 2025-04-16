@@ -29,7 +29,7 @@ region_df = df[df["region"] == region_selected]
 min_year = int(region_df["year"].min())
 max_year = int(region_df["year"].max())
 start_year = st.sidebar.selectbox("Start Year", list(range(min_year, max_year + 1)), index=0)
-end_year = st.sidebar.selectbox("End Year", list(range(min_year, max_year + 1)) - 1)
+end_year = st.sidebar.selectbox("End Year", list(range(min_year, max_year + 1)), index=len(range(min_year, max_year + 1)) - 1)
 
 if start_year > end_year:
     st.warning("Start year must be before end year.")
