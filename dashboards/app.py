@@ -14,7 +14,7 @@ flu_df = pd.read_csv("data/processed/cdc_ilinet_flu_by_year.csv")
 flu_df.columns = flu_df.columns.str.strip().str.lower()
 flu_df = flu_df.rename(columns={"average_flu_percent": "avg_flu_percent"})
 
-# Merge flu data into forecast data
+# flu data into forecast data
 df = pd.merge(forecast_df, flu_df, on="year", how="left")
 
 # Dashboard title and description
@@ -44,8 +44,8 @@ filtered_df = region_df[(region_df["year"] >= start_year) & (region_df["year"] <
 fig, ax = plt.subplots(figsize=(10, 5))
 
 # Plot ER Forecast
-ax.plot(filtered_df["year"], filtered_df["forecast"], label="ER Forecast", marker="o", linewidth=2)
-ax.fill_between(filtered_df["year"], filtered_df["yhat_lower"], filtered_df["yhat_upper"], alpha=0.2, label="Confidence Interval")
+line1 = ax.plot(filtered_df["year"], filtered_df["forecast"], label="ER Forecast", marker="o", linewidth=2)
+fill = ax.fill_between(filtered_df["year"], filtered_df["yhat_lower"], filtered_df["yhat_upper"], alpha=0.2, label="Confidence Interval")
 ax.set_xlabel("Year")
 ax.set_ylabel("Estimated ER Visits")
 ax.set_title(f"{region_selected} Region: ER Forecast with Flu, Mobility & Climate Trends ({start_year}–{end_year})")
@@ -55,9 +55,12 @@ ax.grid(True)
 ax2 = ax.twinx()
 ax2.set_ylabel("Flu %, Mobility %, Temp (°F)")
 
+legend_lines = []
+legend_labels = []
+
 # Flu overlay
 if "avg_flu_percent" in filtered_df.columns and filtered_df["avg_flu_percent"].notna().any():
-    ax2.plot(
+    line2, = ax2.plot(
         filtered_df["year"],
         filtered_df["avg_flu_percent"],
         color="orange",
@@ -65,8 +68,10 @@ if "avg_flu_percent" in filtered_df.columns and filtered_df["avg_flu_percent"].n
         marker="s",
         label="Avg Flu %"
     )
+    legend_lines.append(line2)
+    legend_labels.append("Avg Flu %")
 
-# Mobility overlay (average of retail + grocery)
+# Mobility overlay
 if (
     "retail_and_recreation_percent_change_from_baseline" in filtered_df.columns and
     "grocery_and_pharmacy_percent_change_from_baseline" in filtered_df.columns
@@ -75,7 +80,7 @@ if (
         ["retail_and_recreation_percent_change_from_baseline", "grocery_and_pharmacy_percent_change_from_baseline"]
     ].mean(axis=1)
 
-    ax2.plot(
+    line3, = ax2.plot(
         filtered_df["year"],
         mobility_avg,
         color="green",
@@ -83,10 +88,12 @@ if (
         marker="^",
         label="Avg Mobility % (Retail + Grocery)"
     )
+    legend_lines.append(line3)
+    legend_labels.append("Avg Mobility % (Retail + Grocery)")
 
 # Temperature overlay
 if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f"].notna().any():
-    ax2.plot(
+    line4, = ax2.plot(
         filtered_df["year"],
         filtered_df["avg_temperature_f"],
         color="red",
@@ -95,10 +102,12 @@ if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f
         linewidth=2,
         label="Avg Temp (°F)"
     )
+    legend_lines.append(line4)
+    legend_labels.append("Avg Temp (°F)")
 
-# Add legends
-ax.legend(loc="upper right")
-ax2.legend(loc="upper left")
+# Combined legends from both axes
+lines, labels = ax.get_legend_handles_labels()
+ax.legend(lines + legend_lines, labels + legend_labels, loc="upper right")
 
 # Render plot
 st.pyplot(fig)
@@ -106,3 +115,4 @@ st.pyplot(fig)
 # Footer
 st.markdown("*CDC ILINet flu data, Google Mobility trends, and NOAA temperature data provide seasonal, behavioral, and environmental context for ER surge forecasting.*")
 st.markdown("Created by **Naomi Oluyemi** | MPH Candidate | *Public Health x AI*")
+
