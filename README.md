@@ -8,7 +8,7 @@
 
 **PredictUS** is an AI-powered public health dashboard that forecasts emergency room (ER) surges across the U.S. This tool supports hospitals, policymakers, and emergency response teams in proactive planning, staffing, and resource allocation—particularly during public health crises.
 
-Created to bridge the gap between real-time healthcare demand and hospital preparedness, PredictUS empowers decision-makers with **data-driven foresight**.
+Created to bridge the gap between real-time healthcare demand and hospital preparedness, PredictUS empowers decision-makers with data-driven foresight.
 
 ---
 
