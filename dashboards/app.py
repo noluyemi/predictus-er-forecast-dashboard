@@ -101,4 +101,4 @@ st.pyplot(fig)
 
 # Footer
 st.markdown("*Includes Meta Prophet AI forecasts, CDC flu data, Google mobility trends, and NOAA regional temperature insights.*")
-st.markdown("Created by **Naomi Oluyemi** | MPH Candidate | *Public Health × AI*")
+st.markdown("Created by **Naomi Oluyemi** | *Public Health × AI*")
