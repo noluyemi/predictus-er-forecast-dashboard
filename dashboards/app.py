@@ -37,10 +37,10 @@ if start_year > end_year:
 
 filtered_df = region_df[(region_df["year"] >= start_year) & (region_df["year"] <= end_year)].copy()
 
-# Centered temperature for better scale
-if "temp_centered" in filtered_df.columns and filtered_df["temp_centered"].notna().any():
-    pass  # Temperature data is already in the form we want
-else:
+# Temperature check (safe fallback)
+has_temp = "temp_centered" in filtered_df.columns and filtered_df["temp_centered"].notna().any()
+
+if not has_temp:
     st.warning("Temperature data not available for this region and year range.")
 
 # Plot
@@ -62,7 +62,7 @@ ax2.set_ylabel("Flu %, Mobility %, Temp (°F, Centered)")
 legend_lines, legend_labels = ax.get_legend_handles_labels()
 
 # Flu %
-if filtered_df["avg_flu_percent"].notna().any():
+if "avg_flu_percent" in filtered_df.columns and filtered_df["avg_flu_percent"].notna().any():
     flu_line, = ax2.plot(
         filtered_df["year"], filtered_df["avg_flu_percent"],
         color="orange", linestyle="--", marker="s", label="Avg Flu %"
@@ -83,8 +83,8 @@ if "retail_and_recreation_percent_change_from_baseline" in filtered_df.columns:
     legend_lines.append(mob_line)
     legend_labels.append("Avg Mobility % (Retail + Grocery)")
 
-# Temperature °F
-if filtered_df["temp_centered"].notna().any():
+# Temperature °F (only if data is there)
+if has_temp:
     temp_line, = ax2.plot(
         filtered_df["year"], filtered_df["temp_centered"],
         color="red", linestyle="-.", marker="D", linewidth=2, label="Avg Temp (°F, Centered)"
