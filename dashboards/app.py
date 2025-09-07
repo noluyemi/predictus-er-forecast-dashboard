@@ -47,6 +47,8 @@ else:
     
 st.subheader("Debug: Temperature Data Preview")
 
+st.write("Available columns:", filtered_df.columns.tolist())
+
 # Show just a few rows and key columns
 st.write(filtered_df[["year", "region", "avg_temperature_f", "temp_centered"]].head(10))
 
