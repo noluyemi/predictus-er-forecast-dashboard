@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 # App setup
 st.set_page_config(page_title="PredictUS: Regional ER Forecast", layout="centered")
@@ -39,18 +38,10 @@ if start_year > end_year:
 filtered_df = region_df[(region_df["year"] >= start_year) & (region_df["year"] <= end_year)].copy()
 
 # Centered temperature for better scale
-if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f"].notna().any():
-    temp_mean = filtered_df["avg_temperature_f"].mean()
-    filtered_df["temp_centered"] = filtered_df["avg_temperature_f"] - temp_mean
+if "temp_centered" in filtered_df.columns and filtered_df["temp_centered"].notna().any():
+    pass  # Temperature data is already in the form we want
 else:
-    filtered_df["temp_centered"] = None
-    
-st.subheader("Debug: Temperature Data Preview")
-
-st.write("Available columns:", filtered_df.columns.tolist())
-
-# Show just a few rows and key columns
-st.write(filtered_df[["year", "region", "avg_temperature_f", "temp_centered"]].head(10))
+    st.warning("Temperature data not available for this region and year range.")
 
 # Plot
 fig, ax = plt.subplots(figsize=(10, 5))
