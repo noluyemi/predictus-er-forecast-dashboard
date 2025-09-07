@@ -42,7 +42,7 @@ if "avg_temperature_f" in filtered_df.columns and pd.api.types.is_numeric_dtype(
     temp_mean = filtered_df["avg_temperature_f"].mean()
     filtered_df["temp_centered"] = filtered_df["avg_temperature_f"] - temp_mean
 else:
-    filtered_df["temp_centered"] = np.nan
+    filtered_df["temp_centered"] = np.full(len(filtered_df), np.nan)
 
 # Plot
 fig, ax = plt.subplots(figsize=(10, 5))
