@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # App setup
 st.set_page_config(page_title="PredictUS: Regional ER Forecast", layout="centered")
