@@ -43,6 +43,11 @@ if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f
     filtered_df["temp_centered"] = filtered_df["avg_temperature_f"] - temp_mean
 else:
     filtered_df["temp_centered"] = None
+    
+st.subheader("Debug: Temperature Data Preview")
+
+# Show just a few rows and key columns
+st.write(filtered_df[["year", "region", "avg_temperature_f", "temp_centered"]].head(10))
 
 # Plot
 fig, ax = plt.subplots(figsize=(10, 5))
