@@ -29,7 +29,7 @@ region_df = df[df["region"] == region_selected]
 min_year = int(region_df["year"].min())
 max_year = int(region_df["year"].max())
 start_year = st.sidebar.selectbox("Start Year", list(range(min_year, max_year + 1)), index=0)
-end_year = st.sidebar.selectbox("End Year", list(range(min_year, max_year + 1)), index=len(range(min_year, max_year + 1)) - 1)
+end_year = st.sidebar.selectbox("End Year", list(range(min_year, max_year + 1)), index=(max_year - min_year))
 
 if start_year > end_year:
     st.warning("Start year must be before end year.")
@@ -38,11 +38,11 @@ if start_year > end_year:
 filtered_df = region_df[(region_df["year"] >= start_year) & (region_df["year"] <= end_year)].copy()
 
 # Centered temperature for better scale
-if "avg_temperature_f" in filtered_df.columns and filtered_df["avg_temperature_f"].notna().any():
+if "avg_temperature_f" in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df["avg_temperature_f"]):
     temp_mean = filtered_df["avg_temperature_f"].mean()
     filtered_df["temp_centered"] = filtered_df["avg_temperature_f"] - temp_mean
 else:
-    filtered_df["temp_centered"] = None
+    filtered_df["temp_centered"] = np.nan
 
 # Plot
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -52,7 +52,6 @@ ax.plot(filtered_df["year"], filtered_df["forecast"], color="steelblue", marker=
 ax.fill_between(filtered_df["year"], filtered_df["yhat_lower"], filtered_df["yhat_upper"], color="lightblue", alpha=0.3, label="Confidence Interval")
 ax.set_xlabel("Year")
 ax.set_ylabel("Estimated ER Visits")
-ax.set_title(f"{region_selected} Region: ER Forecast with Flu, Mobility & Temperature Trends ({start_year}–{end_year})")
 ax.grid(True)
 
 # Secondary: flu, mobility, temperature
@@ -63,42 +62,42 @@ ax2.set_ylabel("Flu %, Mobility %, Temp (°F, Centered)")
 legend_lines, legend_labels = ax.get_legend_handles_labels()
 
 # Flu %
-if filtered_df["avg_flu_percent"].notna().any():
-    flu_line, = ax2.plot(
-        filtered_df["year"], filtered_df["avg_flu_percent"],
-        color="orange", linestyle="--", marker="s", label="Avg Flu %"
-    )
+if "avg_flu_percent" in filtered_df.columns and filtered_df["avg_flu_percent"].notna().any():
+    flu_line, = ax2.plot(filtered_df["year"], filtered_df["avg_flu_percent"],
+                         color="orange", linestyle="--", marker="s", label="Avg Flu %")
     legend_lines.append(flu_line)
     legend_labels.append("Avg Flu %")
 
 # Mobility %
-if "retail_and_recreation_percent_change_from_baseline" in filtered_df.columns:
+if (
+    "retail_and_recreation_percent_change_from_baseline" in filtered_df.columns and
+    "grocery_and_pharmacy_percent_change_from_baseline" in filtered_df.columns
+):
     mobility_avg = filtered_df[
         ["retail_and_recreation_percent_change_from_baseline", "grocery_and_pharmacy_percent_change_from_baseline"]
     ].mean(axis=1)
 
-    mob_line, = ax2.plot(
-        filtered_df["year"], mobility_avg,
-        color="green", linestyle=":", marker="^", label="Avg Mobility % (Retail + Grocery)"
-    )
+    mob_line, = ax2.plot(filtered_df["year"], mobility_avg,
+                         color="green", linestyle=":", marker="^", label="Avg Mobility % (Retail + Grocery)")
     legend_lines.append(mob_line)
     legend_labels.append("Avg Mobility % (Retail + Grocery)")
 
 # Temperature °F
-if filtered_df["temp_centered"].notna().any():
-    temp_line, = ax2.plot(
-        filtered_df["year"], filtered_df["temp_centered"],
-        color="red", linestyle="-.", marker="D", linewidth=2, label="Avg Temp (°F, Centered)"
-    )
+if "temp_centered" in filtered_df.columns and filtered_df["temp_centered"].notna().any():
+    temp_line, = ax2.plot(filtered_df["year"], filtered_df["temp_centered"],
+                          color="red", linestyle="-.", marker="D", linewidth=2, label="Avg Temp (°F, Centered)")
     legend_lines.append(temp_line)
     legend_labels.append("Avg Temp (°F, Centered)")
 
-# Combined legend inside the chart
-ax.legend(legend_lines, legend_labels, loc="upper left", fontsize="small")
+# Title
+ax.set_title(f"{region_selected} Region: ER Forecast with Flu, Mobility & Temperature Trends ({start_year}–{end_year})", fontsize=12)
 
-# Show chart
+# Legend
+ax.legend(legend_lines, legend_labels, loc="upper center", bbox_to_anchor=(0.5, 1.15), ncol=2, fontsize="small")
+
+# Render chart
 st.pyplot(fig)
 
-# Footer
+# --- FOOTER ---
 st.markdown("*Includes Meta Prophet AI forecasts, CDC flu data, Google mobility trends, and NOAA regional temperature insights.*")
 st.markdown("Created by **Naomi Oluyemi** | *Public Health × AI*")
