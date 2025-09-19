@@ -62,9 +62,8 @@ Key Features:
 > *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
 
 
-![Forecast Chart](media/forecast_er_plus_flu_overlay.png)
-
-> Forecast Preview: ER Visits with Flu Trend Overlay (2016–2025)
+![Forecast Chart](media/forecast_er_flu_mobility_temp.png)
+> **Forecast Preview:** ER Visits with Flu, Mobility & Temperature Trends (2016–2025)
 
 ### Regional ER Forecasts (2016–2025)
 
