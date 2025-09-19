@@ -16,19 +16,15 @@ flu_df = flu_df.rename(columns={"average_flu_percent": "avg_flu_percent"})
 
 # Temperature Data
 temp_df = pd.read_csv("data/processed/noaa_temp_master.csv")
-temp_df.columns = temp_df.columns.str.strip().str.lower()
 temp_df = temp_df.rename(columns={"Value": "avg_temp", "Year": "year", "Region": "region"})
+temp_df.columns = temp_df.columns.str.strip().str.lower()
 
 # forecast + flu + temp
 df = pd.merge(forecast_df, flu_df, on="year", how="left")
 df = pd.merge(df, temp_df, on=["year", "region"], how="left")
 
-# Center the temperature for plotting
+# Center temperatures
 df["temp_centered"] = df["avg_temp"] - df["avg_temp"].mean()
-
-
-# Merge
-df = pd.merge(forecast_df, flu_df, on="year", how="left")
 
 # Title
 st.title("PredictUS: U.S. ER Surge Forecast Dashboard")
