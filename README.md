@@ -55,12 +55,7 @@ Key Features:
 - Filters: Select region and custom year range
 - Equity Lens: Designed to support underserved and at-capacity public health systems
 
-### Dashboard Preview
-
-![Dashboard Preview](media/dashboard_preview.png)
-
-> *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
-
+### Dashboard 
 
 ![Forecast Chart](media/forecast_er_flu_mobility_temp.png)
 > **Forecast Preview:** ER Visits with Flu, Mobility & Temperature Trends (2016–2025)
