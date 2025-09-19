@@ -17,7 +17,7 @@ flu_df = flu_df.rename(columns={"average_flu_percent": "avg_flu_percent"})
 # Temperature Data
 temp_df = pd.read_csv("data/processed/noaa_temp_master.csv")
 temp_df.columns = temp_df.columns.str.strip().str.lower()
-temp_df = temp_df.rename(columns={"value": "avg_temp", "year": "year", "region": "region"})
+temp_df = temp_df.rename(columns={"Value": "avg_temp", "Year": "year", "Region": "region"})
 
 # forecast + flu + temp
 df = pd.merge(forecast_df, flu_df, on="year", how="left")
