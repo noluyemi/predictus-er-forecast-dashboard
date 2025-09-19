@@ -61,9 +61,6 @@ Key Features:
 
 > *This is a preview of the chart visualization featured in the dashboard. A live version will be deployed on Streamlit Cloud.*
 
-![Forecast Preview](media/prophet_dashboard_preview.png)
-
-> This is a live AI-powered forecast of U.S. emergency room visits using Prophet.
 
 ![Forecast Chart](media/forecast_er_plus_flu_overlay.png)
 
@@ -85,10 +82,6 @@ Forecasts generated using Prophet for U.S. regions based on CDC/HHS data.
 ####  Northeast
 ![Northeast Forecast](media/phase2/forecasts/northeast_forecast_plot.png)
 
-#### ER Forecast + Flu Trends (Dual Axis)
-
-![Visualizes predicted ER visits with flu season burden (CDC ILINet)](media/dashboard_flu_overlay.png)
-
 ###   Live Dashboard
 PredictUS: U.S. Emergency Room Forecast
 
@@ -99,9 +92,6 @@ This dashboard visualizes projected ER visits (2016–2025) using AI and histori
 - Focused on public health equity and surge preparedness
 - Live App: https://predictus-er-forecast-dashboard.streamlit.app
 - GitHub Repo: https://github.com/noluyemi/predictus-er-forecast-dashboard
-
-#### ER Forecast + Flu + Mobility
-![Example: South Region, 2020–2022](media/er_flu_mobility_south_2020_2022.png)
 
 ---
 
