@@ -54,6 +54,7 @@ Key Features:
 - Mobility Behavior: Google Mobility trends (Retail + Grocery) visualize public movement
 - Filters: Select region and custom year range
 - Equity Lens: Designed to support underserved and at-capacity public health systems
+
  
 
 ![Forecast Chart](media/forecast_er_flu_mobility_temp.png)
