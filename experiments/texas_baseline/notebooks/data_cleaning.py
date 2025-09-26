@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 flu_raw = pd.read_csv("ILINet_tx.csv", header=None)  
 print(flu_raw.head(20))
 
-
 # first row as header
 flu = pd.read_csv("ILINet_tx.csv", header=0)
 
