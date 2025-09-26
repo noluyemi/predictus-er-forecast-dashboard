@@ -114,12 +114,12 @@ if 'year' not in flu.columns or 'week' not in flu.columns:
     flu['year'] = flu['date'].dt.isocalendar().year
     flu['week'] = flu['date'].dt.isocalendar().week
 
-# Same for mobility
+#  mobility
 if 'year' not in mob.columns or 'week' not in mob.columns:
     mob['year'] = mob['date'].dt.isocalendar().year
     mob['week'] = mob['date'].dt.isocalendar().week
 
-# Same for temp
+#  temp
 if 'year' not in temp.columns or 'week' not in temp.columns:
     temp['year'] = temp['date'].dt.isocalendar().year
     temp['week'] = temp['date'].dt.isocalendar().week
@@ -127,13 +127,13 @@ if 'year' not in temp.columns or 'week' not in temp.columns:
 # Merge flu + mobility first
 merged = pd.merge(flu, mob, on=['date','year','week'], how='outer')
 
-# Merge temp next
+# Merge temp 
 merged = pd.merge(merged, temp, on=['date','year','week'], how='outer')
 
 # Sort by date
 merged = merged.sort_values('date').reset_index(drop=True)
 
-# Save final merged dataset
+# final merged dataset
 merged.to_csv("predictus_tx_merged.csv", index=False)
 
 print("Final merged dataset shape:", merged.shape)
