@@ -10,4 +10,4 @@ This sub-project applies PredictUS methods at the state level (Texas), merging w
 ### Next Steps
 - Train multivariate models (XGBoost, Prophet) for +1 and +2 week ER/ILI surge forecasting
 - Add visualization via Streamlit (`dashboards/app_tx.py`)
-- Prepare for poster/paper submissions (APHA 2026)
+
