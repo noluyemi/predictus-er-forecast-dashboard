@@ -2,6 +2,7 @@
 # PredictUS (Texas) — Multivariate Weekly Model
 # Forecast horizon: 1-week & 2-weeks ahead
 # Target: ILI visit counts (ili_total) as proxy for ER respiratory burden
+# Only 2 years of google mobility data 
 # ============================================
 
 !pip -q install xgboost
