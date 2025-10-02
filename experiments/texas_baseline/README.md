@@ -21,7 +21,7 @@ Mobility data (Google COVID-19 mobility, 2020–2022) was also processed, but be
 - **Linear Regression**: R² ≈ 0.63, MAE ≈ 506 (baseline performance with flu + temp)  
 - **XGBoost**: R² ≈ 0.85, MAE ≈ 252 (captures nonlinear relationships and lag effects)  
 
-📊 Plots are saved in `/plots/` (e.g., `lr_vs_actual_tx-2.png`, `xgb_vs_actual_tx-3.png`)  
+Plots are saved in `/plots/` (e.g., `lr_vs_actual_tx-2.png`, `xgb_vs_actual_tx-3.png`)  
 
 ---
 
