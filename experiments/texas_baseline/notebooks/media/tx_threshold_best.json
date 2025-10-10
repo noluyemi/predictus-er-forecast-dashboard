@@ -1,0 +1,22 @@
+{
+  "best_youden": {
+    "k": 1.0,
+    "Threshold": 2851.55,
+    "Sensitivity": 0.94,
+    "Specificity": 0.95,
+    "PPV": 0.8,
+    "NPV": 0.99,
+    "F1_Score": 0.86,
+    "Youden": 0.89
+  },
+  "best_f1": {
+    "k": 1.0,
+    "Threshold": 2851.55,
+    "Sensitivity": 0.94,
+    "Specificity": 0.95,
+    "PPV": 0.8,
+    "NPV": 0.99,
+    "F1_Score": 0.86,
+    "Youden": 0.89
+  }
+}
