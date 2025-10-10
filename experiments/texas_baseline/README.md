@@ -35,9 +35,8 @@ Surge Detection & Threshold Validation
 
 Surge alerts are defined as predicted ILI values exceeding a dynamic threshold:
 
-\[
-\text{Threshold} = \mu + k\sigma
-\]
+**Surge threshold formula:**  
+Threshold = Mean (μ) + k × Standard Deviation (σ)
 
 where **μ** = mean ER ILI volume (train set), **σ** = standard deviation, and **k** is tuned via optimization.
 
