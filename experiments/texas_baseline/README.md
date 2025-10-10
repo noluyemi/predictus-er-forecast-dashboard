@@ -15,7 +15,6 @@ Google COVID-19 mobility data (2020–2022) was also processed but not yet integ
 - `notebooks/baseline_flu_temp_linear.py` → Linear regression baseline
 - `notebooks/surge_detection.py` → Surge alert generation (mean + k×SD threshold) 
 - `notebooks/threshold_optimization.py` → Threshold optimization using F1-score & Youden Index 
--`config/tx_threshold_best.json` → Saved optimal threshold parameters 
 - `media/` → Output plots (XGBoost, Linear Regression, Surge Detection, Threshold Optimization) 
 
 ---
