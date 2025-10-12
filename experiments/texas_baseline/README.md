@@ -22,10 +22,9 @@ Google COVID-19 mobility data (2020–2022) was also processed but not yet integ
 ---
 
 ## Current Results
-| Model | R² | MAE | Notes |
+| Model | R² | Standardized Z-Score | Notes |
 |--------|----|-----|-------|
-| **Linear Regression** | 0.63 | 506 | Baseline performance (flu + temp) |
-| **XGBoost** | 0.85 | 252 | Captures nonlinear + lag relationships |
+| **XGBoost** | 0.73 | 0.28 | Captures nonlinear + lag relationships |
 
 Plots are saved in `/plots/` (e.g., `lr_vs_actual_tx-2.png`, `xgb_vs_actual_tx-3.png`)  
 
@@ -40,16 +39,19 @@ Threshold = Mean (μ) + k × Standard Deviation (σ)
 
 where **μ** = mean ER ILI volume (train set), **σ** = standard deviation, and **k** is tuned via optimization.
 
-### Optimization Results
-| Metric | Optimal Value |
-|---------|----------------|
-| **Best k (Youden/F1)** | **1.0 × SD above mean** |
-| **Sensitivity** | 0.94 |
-| **Specificity** | 0.95 |
-| **PPV** | 0.80 |
-| **NPV** | 0.99 |
-| **F1-score** | 0.86 |
-| **Youden Index** | 0.89 |
+---
+The optimal threshold was identified using a grid search (k=1.0 to 2.5), maximizing both the **F1-Score** (predictive balance) and the **Youden Index** (overall discriminative power).
+
+| Metric | Optimal Value (k=1.25) | Interpretation for Public Health |
+| :--- | :--- | :--- |
+| **Optimal k** | **1.25** | The optimal surge alert threshold is set at **1.25 standard deviations above the mean** of historical flu activity. |
+| **Sensitivity (Recall)** | **94.12%** | **CRITICAL:** The model correctly **identifies over 94% of actual flu surges** (minimizing missed outbreaks). |
+| **Specificity** | **97.06%** | The model correctly **predicts a normal week over 97% of the time** (minimizing unnecessary resource deployment). |
+| **NPV (Negative Predictive Value)** | **99%** | The model is **near-perfect** at confirming when a surge is **not** going to happen (99% certainty of no surge when alert is negative). |
+
+### Operational Impact Summary (Last Test Fold)
+
+The model was tested over **85 weeks**. Of the 17 actual surge periods, the model correctly issued an alert for **16 (True Positives)** and only missed **1 (False Negative)**. This demonstrates **high actionability** for immediate hospital resource allocation.
 
 **Artifacts:**
 - `media/tx_surge_detection_k1.00.png` — Surge alert visualization  
@@ -62,15 +64,6 @@ The threshold optimization ensures that surge alerts are *data-driven* rather th
 
 ---
 
-## Key Insights
-
-- Temperature and flu intensity alone explain **85%** of variance in ER ILI visits statewide.
-- Optimal surge threshold (mean + 1×SD) achieves high discriminative validity:
-  - Sensitivity and specificity above 0.9  
-  - Near-perfect negative predictive value (0.99)
-- Demonstrates the **feasibility of proactive ER surge monitoring** from open data.
-
----
 
 ##  Next Steps
 
