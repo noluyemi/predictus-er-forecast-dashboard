@@ -1,8 +1,7 @@
 
 # PredictUS-TX (State-Level Prototype)
 
-This sub-project applies **PredictUS** methods at the **state level (Texas)**, using weekly influenza surveillance (CDC ILINet, 2015–2025) and NOAA temperature data as predictors.  
-Google COVID-19 mobility data (2020–2022) was also processed but not yet integrated due to limited coverage.
+This sub-project establishes PredictUS-TX: an Open-Source Reproducible Analytical Pipeline (RAP) designed for operational flu surge forecasting in Texas. The model utilizes validated weekly influenza (CDC ILINet) and NOAA climate data, strategically avoiding proprietary EHR systems.
 
 ---
 
@@ -11,9 +10,6 @@ Google COVID-19 mobility data (2020–2022) was also processed but not yet integ
 - `data/raw/` → Original downloaded datasets (ILINet, NOAA, mobility)  
 - `notebooks/data_cleaning.py` → Cleaning pipeline (flu + temp → weekly merge)  
 - `data/processed/predictus_tx_flu_temp.csv` → Final weekly dataset (flu + temperature only, 2015–2025)  
-- `notebooks/baseline_flu_temp_xgboost.py` → XGBoost baseline (+1 week forecasting)  
-- `notebooks/baseline_flu_temp_linear.py` → Linear regression baseline
-- `notebooks/surge_detection.py` → Surge alert generation (mean + k×SD threshold) 
 - `notebooks/threshold_optimization.py` → Threshold optimization using F1-score & Youden Index 
 - `media/` → Output plots (XGBoost, Linear Regression, Surge Detection, Threshold Optimization) 
 
@@ -22,7 +18,7 @@ Google COVID-19 mobility data (2020–2022) was also processed but not yet integ
 ---
 
 ## Current Results
-| Model | R² | Standardized Z-Score | Notes |
+| Model | R² | MAE| Notes |
 |--------|----|-----|-------|
 | **XGBoost** | 0.73 | 0.28 | Captures nonlinear + lag relationships |
 
