@@ -1,0 +1,186 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,      
+  warning = FALSE, 
+  message = FALSE   
+)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+```
+
+
+```{r}
+flu_temp <- read_csv("/Users/naomioluyemi/Downloads/PredictUS_Tx/Clean\ data/predictus_tx_flu_temp.csv")
+ 
+
+# checking NAs
+colSums(is.na(flu_temp))
+
+flu_clean <- flu_temp %>%
+  filter(!is.na(flu_percent) & !is.na(avg_temp))
+nrow(flu_clean)
+
+```
+
+```{r}
+# Providing the model with a one and two-week memory of prior surveillance data
+flu_clean <- flu_clean %>%
+  arrange(date) %>%
+  mutate(
+    lag1_flu = lag(flu_percent, 1),
+    lag2_flu = lag(flu_percent, 2),
+    lag1_temp = lag(avg_temp, 1)
+  ) %>%
+  filter(!is.na(lag2_flu))
+
+nrow(flu_clean)
+
+# verifying lag feature
+flu_clean %>%
+  select(date, flu_percent, lag1_flu, lag2_flu, avg_temp, lag1_temp) %>%
+  head(10)
+```
+
+```{r}
+# Scatter plot showing relationship between temperature and flu ER visits
+ggplot(flu_clean, aes(x = avg_temp, y = flu_percent)) +
+  geom_point(alpha = 0.4, color = "steelblue") + 
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(
+    title = "Temperature vs Flu Percent in Texas (2015 -2025)",
+    x = "Average Weekly Temperature (°F)",
+    y = "Flu Percent of ER Visits"
+  ) +
+  theme_minimal()
+```
+
+Red line shows the trend (as temperature rises, flu visits decrease) while the gray shading shows the uncertainty range around the trend line.
+
+```{r}
+# Flu percent over time to show seasonal trends
+ggplot(flu_clean, aes(x = date, y =flu_percent)) +
+  geom_line(color = "steelblue") +
+  labs(
+    title = "Weekly Flu Percent in Texas ER Visits (2015 - 2025)",
+     x = "Date",
+    y = "Flu Percent of ER Visits"
+  ) +
+  theme_minimal()
+
+```
+
+Flu percent rises every winter and drops every summer. This confirms seasonal pattern which justifies using temperature as a predictor. There is a notable spike in 2020 which likely reflects COVID-19 overlap in ER reporting.
+
+```{r}
+# Temperature over time to show seasonal cycle
+ggplot(flu_clean, aes(x = date, y = avg_temp)) +
+  geom_line(color = "tomato") +
+  labs(
+    title = "Weekly Average Temperature in Texas (2015 - 2025)",
+    x = "Date",
+    y = "Average Temperature (°F)"
+  )
+theme_minimal()
+
+```
+Temperature follows a clear seasonal cycle in Texas. When temperature hits winter lows, flu percent is at its highest. This inverse relationship visually supports our core hypothesis.
+
+
+```{r}
+# Linear Regression Model
+model <- lm(flu_percent ~ avg_temp + lag1_flu +lag2_flu + lag1_temp,
+            data = flu_clean)
+summary(model)
+
+```
+#### Interpretation
+R-squared: 0.9267; the model explains 92.7% of the variation in flu ER visits.
+avg_temp: -0.027904 (p = 0.00146). For every 1°F increase in temperature, flu percent drops by 0.028% (statistically significant)
+lag1_flu: 1.202481 (p < 2e-16). Last week's flu activity is the strongest predictor. If flu was high last week, it will likely be high this week. 
+lag2_flu: -0.292514 (p < 2e-16). Two weeks ago flu activity has a corrective effect; it slightly pulls the prediction back down but remains extremely significant.
+lag1_temp: 0.016399 (p = 0.06356). Last week's temperature is borderline; it misses the 0.05 significance threshold.
+
+
+### Threshold
+```{r}
+# Mean and sdv of flu_percent from training data
+mu <- mean(flu_clean$flu_percent)
+sdv <- sd(flu_clean$flu_percent)
+
+# finding optimal surge thresholds
+k_values <- seq(1.0, 2.5, by = 0.1)
+
+# results table
+# F1 score balances two concerns:
+# Sensitivity: are we catching real surges?
+# Specificity:are we avoiding false alarms? 
+
+results <- data.frame(k = k_values, sensitivity = NA, specificity = NA, f1 = NA)
+
+for (i in seq_along(k_values)) {
+  threshold <- mu + k_values[i] * sdv
+  
+  predicted_surge <- as.numeric(fitted(model) >= threshold)
+  actual_surge <- as.numeric(flu_clean$flu_percent >= threshold)
+  
+  tp <- sum(predicted_surge == 1 & actual_surge == 1)
+  fp <- sum(predicted_surge == 1 & actual_surge == 0)
+  fn <- sum(predicted_surge == 0 & actual_surge == 1)
+  tn <- sum(predicted_surge == 0 & actual_surge == 0)
+  
+  sens <- ifelse((tp +fn) > 0, tp / (tp + fn), 0)
+  spec <- ifelse((tn + fp) > 0, tn / (tn + fp), 0)
+  f1 <- ifelse((2**tp + fp + fn) > 0, (2*tp)/(2*tp + fp +fn), 0)
+    
+  results$sensitivity[i] <- round(sens, 3)
+  results$specificity[i] <- round(spec, 3)
+  results$f1[i] <- round(f1, 3)
+  
+}
+
+
+print(results)
+
+```
+Sensitivity 86.1%: the model catches 86 out of every 100 real surges
+Specificity 99.6%: the model correctly identifies normal weeks 99.6% of the time
+F1 = 0.899 which is a strong overall balance between both
+Optimal k = 1.9
+
+
+```{r}
+# Youden Index
+results$youden <- results$sensitivity + results$specificity - 1
+print(results)
+```
+
+#### Surge Detection
+```{r}
+flu_clean <- flu_clean %>%
+  mutate(surge_flag = as.numeric(flu_percent >= (mu + 1.9 * sdv)))
+
+ggplot(flu_clean, aes(x = date, y = flu_percent)) +
+  geom_line(color = "steelblue") +
+  geom_point(data = filter(flu_clean, surge_flag == 1),
+             aes(x = date, y = flu_percent),
+             color = "red", size = 2) +
+  geom_hline(yintercept = mu + 1.9 + sdv,
+             linetype = "dashed", color = "red") +
+  labs(
+    title = "Flu Surge Detection in Texas (k = 1.9)",
+    x = "Date",
+    y = "Flu Percent of ER Visits",
+    caption = "Red dots = surge weeks | Dashed line = surge threshold"
+  ) +
+  theme_minimal()
+
+  
+  
+```
+
+
