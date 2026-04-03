@@ -1,7 +1,6 @@
 ## R Analysis (Graduate Research Validation)
-
 This directory contains the R-based statistical validation of the PredictUS-TX pipeline, 
-developed as part of graduate coursework in Health Data Science at UT Southwestern.
+developed as part of graduate coursework in Health Data Science.
 
 ### What This Analysis Does
 - Cleans and prepares 10 years of weekly CDC ILINet and NOAA temperature data (2015–2025)
